@@ -84,8 +84,18 @@ export default {
       this.menuItemSelected = v;
     },
     onWindowScroll() {
-      this.tabBarFixed = window.scrollY > this.headerHeight;
-      this.isScrolledDown = window.scrollY > 0;
+      const documentHeight = document.documentElement.scrollHeight;
+      const windowHeight = window.innerHeight;
+      const scrollY = window.scrollY;
+      this.tabBarFixed = scrollY > this.headerHeight;
+      // avoids alteration of header by a rule of thumb... little bit conservative
+      if (documentHeight - windowHeight > this.headerHeight) {
+        this.isScrolledDown = scrollY > 2;
+      } else {
+        if (scrollY === 0) {
+          this.isScrolledDown = false;
+        }
+      }
     },
     updateTabBarPosition() {
       this.tabBarDynamicLeftOffset =
