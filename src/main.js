@@ -1,8 +1,11 @@
-import Vue from 'vue'
-import App from './App.vue'
+/* jshint esversion: 6 */
 
-Vue.config.productionTip = false
+import Vue from "vue";
+import "./plugins/vuetify";
+import App from "./app.vue";
+
+Vue.config.productionTip = false;
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+  render: (h) => h(App),
+}).$mount("#app");
