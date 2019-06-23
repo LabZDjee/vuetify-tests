@@ -21,12 +21,14 @@ export default {
     dataKey: { type: String, requied: true }, // key on reactiveData
     scale: {
       type: Number, // multiplied by this upon input / divided by this upon output
-      default() {
-        return 1;
-      },
+      default: 1,
     },
     bottom: [Number, String], // optional: minimum value (inclusive, taking scale into account)
     top: [Number, String], // optional: maximum value (inclusive, taking scale into account)
+    maxPrecision: {
+      type: Number, // max number of significant digits - if undefined or null, ignore
+      default: 5,
+    },
     label: String,
     suffix: String, // optional, e.g. for unit
     hint: String,
@@ -67,6 +69,13 @@ export default {
       this.initialValue = v;
       return false;
     },
+    applyPrecision(value) {
+      const precision = Math.round(Number(this.maxPrecision));
+      if (!isNaN(precision) && precision > 0) {
+        return Number(value.toPrecision(this.maxPrecision));
+      }
+      return value;
+    },
     input() {
       const rTest = this.test();
       if (rTest === false) {
@@ -86,7 +95,7 @@ export default {
       this.editedValue = correctedValue;
       this.input();
       if (typeof this.onChanged === "function") {
-        const scaledValue = correctedValue / this.scale;
+        const scaledValue = this.applyPrecision(correctedValue / this.scale);
         this.onChanged({ dataKey: this.dataKey, value: this.isNumber ? scaledValue : scaledValue.toString() });
       }
     },
@@ -96,7 +105,7 @@ export default {
       if (isNaN(newData)) {
         conformedData = 0;
       } else {
-        conformedData = Number(newData) * this.scale;
+        conformedData = this.applyPrecision(Number(newData) * this.scale);
       }
       this.initialValue = conformedData;
       this.editedValue = conformedData;
