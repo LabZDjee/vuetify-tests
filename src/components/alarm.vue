@@ -38,7 +38,7 @@
               <v-flex pr-1 :class="{xs6: hp('th2'), xs9: !hp('th2')}">
                 <vyw-numeric-input
                   :data-key="params.th1.id"
-                  :scale="Number(params.th1.scale)"
+                  :scale="params.th1.scale===undefined?undefined:Number(params.th1.scale)"
                   :bottom="params.th1.min"
                   :top="params.th1.max"
                   :label="params.th1.title"
@@ -50,7 +50,7 @@
               <v-flex xs6 v-if="hp('th2')">
                 <vyw-numeric-input
                   :data-key="params.th2.id"
-                  :scale="Number(params.th2.scale)"
+                  :scale="params.th2.scale===undefined?undefined:Number(params.th2.scale)"
                   :bottom="params.th2.min"
                   :top="params.th2.max"
                   :label="params.th2.title"
