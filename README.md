@@ -13,7 +13,7 @@ Basic *Vuetify* UI input components such as `v-text-field`, `v-select`... have b
 - `dataKey` which is a required string which provides key of datum controlled by the *reac-ter*
 - `onChanged` is a callback on UI contents change
 
-Particularly, `v-text-field` has been wrapped in three components with specialized Vue `props` to filter and control *text* with pattern checks (examples in `utils.js`), *numeric* with range check, scale, and *integer* with range, up/down icon, scale...
+Particularly, `v-text-field` has been wrapped in three components with specialized Vue `props` to filter and control *text* with pattern checks (examples in `utils.js`), *numeric* with range check, scale, precision, and *integer* with range, up/down icon, scale...
 
 The `onChanged` callback described above is expected *custom events* to be triggered by components who control those wrapped UI inputs. This callback uses an `eventBus` to satisfy this. The event is caught by the `main` component which takes care of refreshing external data.  Most of the mechanism associated to *reac-ter* is implemented in a commonized Vue `mixins` 
 
