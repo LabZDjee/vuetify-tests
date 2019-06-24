@@ -11,6 +11,7 @@
     :hint="hint"
     :counter="maxLength"
     :maxLength="maxLength"
+    :mask="mask"
   />
 </template>
 
